@@ -149,7 +149,7 @@ speedplot
 #puts the plots together nicely 
 grid.arrange(flowplot, grossrespplot, osculaplot, speedplot, ncol = 2) 
 
-##### Dry plot #####
+##### Dry plot just to check #####
 
 #this isn't necessary we just did it to check something
 dryplot <- ggplot(wholesponges, 
