@@ -1,12 +1,14 @@
 library(tidyr)
 library(dplyr)
 library(ggplot2)
-library(gridExtra) 
+library(gridExtra) #puts the plots together 
 
 #call in the data
 rawsponge <- read.csv("Spongedata.csv",
                       header = TRUE,
                       stringsAsFactors = TRUE)
+
+##### Clean the data #####
 
 #make all the na's into NA 
 rawsponge <- na_if(rawsponge, "na") 
@@ -26,6 +28,8 @@ wholesponges[ ,2:18]<-
 #make all the values numeric so they can be used in geom_smooth functions
 wholesponges[ ,2:18]<- 
   sapply(wholesponges[ ,2:18], as.numeric)
+
+##### Flow plot #####
 
 #make an axis label with a superscript
 labelAY <- expression(Flow~Rate~(ml~cm^-1))
@@ -50,6 +54,8 @@ flowplot <- ggplot(wholesponges,
 
 flowplot
 
+##### Gross resp. plot #####
+
 #make an axis label with a superscript
 labelBY <- expression(Gross~Resp.~Rate~(μmol~s^-1))
 
@@ -72,6 +78,8 @@ grossrespplot <- ggplot(wholesponges,
   xlab("Sponge Volume (ml)")
 
 grossrespplot
+
+##### Oscula plot #####
 
 #make an axis label with a superscript
 labelCY2 <- expression(Surface~Area~(cm^2))
@@ -109,6 +117,8 @@ osculaplot <- ggplot(wholesponges,
 
 osculaplot
 
+##### Speed plot #####
+
 #make an axis label with a superscript
 labelDX <- expression(SA~per~Oscula~(cm^2))
 
@@ -134,8 +144,12 @@ speedplot <- ggplot(rawsponge,
 
 speedplot
 
+##### put the plots together #####
+
 #puts the plots together nicely 
 grid.arrange(flowplot, grossrespplot, osculaplot, speedplot, ncol = 2) 
+
+##### Dry plot #####
 
 #this isn't necessary we just did it to check something
 dryplot <- ggplot(wholesponges, 
